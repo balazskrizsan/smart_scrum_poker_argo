@@ -1,0 +1,47 @@
+### Backend App - PSQL
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ssp-dev
+  name: backend-psql-deployment
+  labels:
+    app: backend-psql-LABEL
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-psql-label
+  template:
+    metadata:
+      labels:
+        app: backend-psql-label
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16.2
+          ports:
+            - containerPort: 5432
+          imagePullPolicy: IfNotPresent
+          resources: {}
+          env:
+            - name: POSTGRES_USER
+              value: admin
+            - name: POSTGRES_PASSWORD
+              value: admin_pass
+            - name: POSTGRES_DB
+              value: smartscrumpoker
+            - name: PGDATA
+              value: /data/postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ssp-dev
+  name: backend-psql-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 47040
+      targetPort: 5432
+  selector:
+    app: backend-psql-label
