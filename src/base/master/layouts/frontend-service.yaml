@@ -33,13 +33,13 @@ spec:
           env:
             - name: FRONTEND_CONFIG
               value: k8smaster
-          volumeMounts:
-            - name: custom-404-page
-              mountPath: /usr/share/nginx/html
-      volumes:
-        - name: custom-404-page
-          configMap:
-            name: custom-404-page
+#          volumeMounts:
+#            - name: custom-404-page
+#              mountPath: /usr/share/nginx/html
+#      volumes:
+#        - name: custom-404-page
+#          configMap:
+#            name: custom-404-page
 
 ---
 
