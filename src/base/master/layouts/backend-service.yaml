@@ -50,11 +50,11 @@ spec:
                 secretKeyRef:
                   name: backend-secrets
                   key: SERVER_PORT
-            - name: SERVER_SOCKER_FULL_HOST
+            - name: SERVER_SOCKET_FULL_HOST
               valueFrom:
                 secretKeyRef:
                   name: backend-secrets
-                  key: SERVER_SOCKER_FULL_HOST
+                  key: SERVER_SOCKET_FULL_HOST
             - name: SERVER_SSL_ENABLED
               valueFrom:
                 secretKeyRef:
