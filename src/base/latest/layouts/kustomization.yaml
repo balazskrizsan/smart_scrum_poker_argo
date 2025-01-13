@@ -4,26 +4,4 @@ kind: Kustomization
 resources:
   - insecure-psql-configmap.yaml
   - frontend-service.yaml
-  - ../../templates/backend-service.yaml
-
-configMapGenerator:
-  - name: app-config
-    literals:
-      - APP_ENV=production
-      - APP_DOCKER_HUB_TAG=latest
-
-vars:
-  - name: ENV
-    objref:
-      kind: ConfigMap
-      name: app-config
-      apiVersion: v1
-    fieldref:
-      fieldpath: data.APP_ENV
-  - name: DOCKER_HUB_TAG
-    objref:
-      kind: ConfigMap
-      name: app-config
-      apiVersion: v1
-    fieldref:
-      fieldpath: data.APP_DOCKER_HUB_TAG
+  - backend-service.yaml
