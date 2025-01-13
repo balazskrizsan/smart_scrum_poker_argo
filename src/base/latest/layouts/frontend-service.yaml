@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: ssp-master
+  namespace: ssp-latest
   name: ssp-frontend
   labels:
     app: ssp-frontend-label
@@ -32,7 +32,7 @@ spec:
               memory: 400Mi
           env:
             - name: FRONTEND_CONFIG
-              value: k8smaster
+              value: k8slatest
 #          volumeMounts:
 #            - name: custom-404-page
 #              mountPath: /usr/share/nginx/html
@@ -46,7 +46,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: ssp-master
+  namespace: ssp-latest
   name: ssp-frontend
   labels:
     app: ssp-frontend-label
@@ -67,7 +67,7 @@ spec:
 #kind: Ingress
 #metadata:
 #  name: ssp-frontend-ingress
-#  namespace: ssp-master
+#  namespace: ssp-latest
 #  annotations:
 #    nginx.ingress.kubernetes.io/default-backend: ingress-nginx-controller
 #    kubernetes.io/ingress.class: nginx

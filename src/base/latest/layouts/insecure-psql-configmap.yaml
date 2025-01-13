@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: insecure-psql-config
-  namespace: ssp-master
+  namespace: ssp-latest
   labels:
     app: backend-psql
     name: insecure-psql-config
