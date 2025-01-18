@@ -2,7 +2,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: ssp-prod
   name: ssp-backend
   labels:
     app: ssp-backend-label
@@ -17,7 +16,6 @@ spec:
         app: ssp-backend-label
         service: ssp-backend
     spec:
-#      restartPolicy: Always
       containers:
         - name: ssp-backend
           image: kbalazsworks/smart_scrum_poker_backend_native:commit_sha_short_764f243
@@ -119,7 +117,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: ssp-prod
   name: ssp-backend
   labels:
     app: ssp-backend-label
@@ -143,7 +140,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: ssp-prod
   name: backend-psql
   labels:
     app: backend-psql-label
@@ -171,7 +167,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: ssp-prod
   name: backend-psql-service
 spec:
   type: LoadBalancer

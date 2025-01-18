@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: ssp-prod
   name: ssp-frontend
   labels:
     app: ssp-frontend-label
@@ -33,20 +32,12 @@ spec:
           env:
             - name: FRONTEND_CONFIG
               value: k8sprod
-#          volumeMounts:
-#            - name: custom-404-page
-#              mountPath: /usr/share/nginx/html
-#      volumes:
-#        - name: custom-404-page
-#          configMap:
-#            name: custom-404-page
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: ssp-prod
   name: ssp-frontend
   labels:
     app: ssp-frontend-label
@@ -61,26 +52,3 @@ spec:
       protocol: TCP
       port: 48010
       targetPort: 80
-
-#---
-#apiVersion: networking.k8s.io/v1
-#kind: Ingress
-#metadata:
-#  name: ssp-frontend-ingress
-#  namespace: ssp-prod
-#  annotations:
-#    nginx.ingress.kubernetes.io/default-backend: ingress-nginx-controller
-#    kubernetes.io/ingress.class: nginx
-#    nginx.ingress.kubernetes.io/use-regex: "true"
-#spec:
-#  rules:
-#    - host: ssp.dev
-#      http:
-#        paths:
-#          - path: /
-#            pathType: Prefix
-#            backend:
-#              service:
-#                name: ssp-frontend
-#                port:
-#                  number: 80
