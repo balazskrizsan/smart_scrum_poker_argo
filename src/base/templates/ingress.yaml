@@ -21,9 +21,8 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - "api-ssp-placeholder.balazskrizsan.com"
         - "ssp-placeholder.balazskrizsan.com"
-      secretName: ssm-dot-local
+      secretName: cert-frontend
   rules:
     - host: "api-ssp-placeholder.balazskrizsan.com"
       http:
@@ -34,7 +33,7 @@ spec:
               service:
                 name: ssp-backend
                 port:
-                  number: 1234
+                  number: 46001
 
 ---
 
@@ -49,9 +48,8 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - "api-ssp-placeholder.balazskrizsan.com"
         - "ssp-placeholder.balazskrizsan.com"
-      secretName: ssm-dot-local
+      secretName: cert-frontend
   rules:
     - host: "ssp-placeholder.balazskrizsan.com"
       http:
