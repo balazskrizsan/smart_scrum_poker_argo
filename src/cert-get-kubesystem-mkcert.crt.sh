@@ -1,0 +1,1 @@
+kubectl get secret mkcert -n kube-system -o jsonpath='{.data.tls\.crt}' | base64 -d

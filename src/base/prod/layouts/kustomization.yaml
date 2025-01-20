@@ -46,7 +46,7 @@ patches:
         {
           "op": "replace",
           "path": "/spec/tls/0/hosts",
-          "value": ["api-ssp-prod.balazskrizsan.com", "ssp-prod.balazskrizsan.com"]
+          "value": ["api-ssp-prod.balazskrizsan.com"]
         }
       ]
 
@@ -70,6 +70,6 @@ patches:
         {
           "op": "replace",
           "path": "/spec/tls/0/hosts",
-          "value": [ "api-ssp-prod.balazskrizsan.com", "ssp-prod.balazskrizsan.com" ]
+          "value": [ "ssp-prod.balazskrizsan.com" ]
         }
       ]
