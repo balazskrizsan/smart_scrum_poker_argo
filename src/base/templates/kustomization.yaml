@@ -1,5 +1,5 @@
 resources:
   - insecure-psql-configmap.yaml
-  - ingress.yaml
   - backend-service.yaml
   - frontend-service.yaml
+  - ingress.yaml

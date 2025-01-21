@@ -16,13 +16,22 @@ patches:
       [
         {
           "op": "replace",
-          "path": "/spec/replicas",
-          "value": 2
-        },
+          "path": "/spec/template/spec/containers/0/image",
+          "value": "kbalazsworks/smart_scrum_poker_backend_native:commit_sha_short_764f243"
+        }
+      ]
+
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: ssp-frontend
+    patch: |-
+      [
         {
           "op": "replace",
           "path": "/spec/template/spec/containers/0/image",
-          "value": "kbalazsworks/smart_scrum_poker_backend_native:commit_sha_short_764f243"
+          "value": "kbalazsworks/smart_scrum_poker_frontend:prod_commit_sha_short_8fdc690"
         }
       ]
 

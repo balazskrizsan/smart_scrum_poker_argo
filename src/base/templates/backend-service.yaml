@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: ssp-backend
-          image: kbalazsworks/smart_scrum_poker_backend_native:commit_sha_short_764f243
+          image: placeholder:placeholder
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -163,7 +163,9 @@ spec:
           envFrom:
             - configMapRef:
                 name: insecure-psql-config
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:

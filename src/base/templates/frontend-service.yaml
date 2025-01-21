@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: ssp-frontend
-          image: kbalazsworks/smart_scrum_poker_frontend:commit_sha_short_fc423d0
+          image: placeholder:placeholder
           imagePullPolicy: Always
           ports:
             - containerPort: 80
