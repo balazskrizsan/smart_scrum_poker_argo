@@ -3,5 +3,5 @@ kind: Kustomization
 
 resources:
   - ../argo_setup
-  - ../base/prod/secrets
-  - ../base/prod/layouts
+  - ../base/prod/config
+  - ../base/prod/application
