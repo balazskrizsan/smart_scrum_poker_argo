@@ -1,3 +1,7 @@
+### App ###
+src/setup/set-google-service-account.yaml
+
+### Maven ###
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
