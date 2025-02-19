@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-psql
+  labels:
+    app: backend-psql-label
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-psql-label
+  template:
+    metadata:
+      labels:
+        app: backend-psql-label
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16.2
+          ports:
+            - containerPort: 5432
+          imagePullPolicy: IfNotPresent
+          resources: {}
+          envFrom:
+            - configMapRef:
+                name: insecure-psql-config

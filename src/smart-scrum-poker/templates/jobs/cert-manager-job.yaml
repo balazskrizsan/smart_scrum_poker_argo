@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cert-manager-job
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  template:
+    spec:
+      containers:
+        - name: kubectl
+          image: adelchouchene/kubectl-curl
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              mkdir /certs
+
+              curl -o /certs/certificate.crt $(cat /certpaths/certificate.crt.path)
+              curl -o /certs/private.key $(cat /certpaths/private.key.path)
+
+              kubectl delete secret secret-tls-prod -n $(cat /namespace-name.txt) --ignore-not-found=false
+              kubectl create secret tls secret-tls-prod \
+              -n $(cat /namespace-name.txt) \
+              --key /certs/private.key \
+              --cert /certs/certificate.crt
+
+          volumeMounts:
+            - name: cloud-secrets-volume
+              mountPath: /certpaths/private.key.path
+              subPath: private.key.path
+            - name: cloud-secrets-volume
+              mountPath: /certpaths/certificate.crt.path
+              subPath: certificate.crt.path
+            - name: namespace-config-volume
+              mountPath: /namespace-name.txt
+              subPath: NAMESPACE_NAME
+      restartPolicy: Never
+      volumes:
+        - name: cloud-secrets-volume
+          secret:
+            secretName: cloud-secrets
+        - name: namespace-config-volume
+          configMap:
+            name: namespace-config

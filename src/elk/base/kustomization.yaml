@@ -7,5 +7,6 @@ resources:
   - elasticsearch-service.yaml
   - kibana-deployment.yaml
   - kibana-service.yaml
+  - kibana-ingress.yaml
   - logstash-deployment.yaml
   - logstash-service.yaml

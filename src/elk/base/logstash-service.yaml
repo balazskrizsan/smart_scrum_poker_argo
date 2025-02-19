@@ -6,6 +6,7 @@ metadata:
   labels:
     app: logstash
 spec:
+  type: LoadBalancer
   selector:
     app: logstash
   ports:
@@ -13,8 +14,7 @@ spec:
       protocol: TCP
       port: 5044
       targetPort: 5044
-#    - name: http-monitoring
-#      protocol: TCP
-#      port: 9600
-#      targetPort: 9600
-  type: ClusterIP
+    - name: http-monitoring
+      protocol: TCP
+      port: 9600
+      targetPort: 9600

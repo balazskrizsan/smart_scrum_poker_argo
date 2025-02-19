@@ -1,9 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-
-resources:
-  - ../setup
-  - ../base/prod/cluster-config
-  - ../base/prod/app-config
-  - ../base/prod/secret-management
-  - ../base/prod/application

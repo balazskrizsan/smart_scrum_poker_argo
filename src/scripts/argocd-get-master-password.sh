@@ -1,1 +1,0 @@
-kubectl get secret argocd-secret -n argocd -o jsonpath="{.data.admin\.password}" | base64 --decode
