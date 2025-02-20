@@ -2,10 +2,10 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: namespace-config
-  namespace: demo-prod
+  namespace: smart-scrum-poker-prod
   annotations:
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
     argocd.argoproj.io/sync-wave: "-1"
 data:
-  NAMESPACE_NAME: "demo-prod"
+  NAMESPACE_NAME: "prod"
