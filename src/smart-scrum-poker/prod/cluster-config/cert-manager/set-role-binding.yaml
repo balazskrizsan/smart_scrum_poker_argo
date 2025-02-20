@@ -3,6 +3,10 @@ kind: RoleBinding
 metadata:
   name: argocd-cert-manager-binding
   namespace: smart-scrum-poker-prod
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "-1"
 subjects:
   - kind: ServiceAccount
     name: argocd-application-controller
