@@ -7,4 +7,4 @@ resources:
   - ../smart-scrum-poker/prod/jobs
   - ../smart-scrum-poker/prod/namespace-config
   - ../smart-scrum-poker/prod/app-backend
-#  - ../smart-scrum-poker/prod/app-frontend
+  - ../smart-scrum-poker/prod/app-frontend
