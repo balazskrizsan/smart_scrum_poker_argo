@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kibana
-  namespace: elk-local
+  namespace: smart-scrum-poker-elk-common
 spec:
   type: NodePort
   selector:
