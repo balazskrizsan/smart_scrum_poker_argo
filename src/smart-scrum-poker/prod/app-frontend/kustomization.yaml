@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: smart-scrum-poker-prod
 
 resources:
-  - ../../templates/
+  - ../../templates/app-frontend
 
 patches:
   - target:
