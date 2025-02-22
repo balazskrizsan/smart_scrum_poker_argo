@@ -16,7 +16,7 @@ configMapGenerator:
       - SERVER_SSL_ENABLED=false
       - SERVER_SSL_KEY_STORE=classpath:keystore/dev.p12
       - SITE_DOMAIN=smart-scrum-poker.balazskrizsan.com
-      - SITE_FRONTEND_HOST=https://smart-scrum-poker.balazskrizsan.comm/
+      - SITE_FRONTEND_HOST=https://smart-scrum-poker.balazskrizsan.com/
       - SOCKET_IS_ENABLED_SOCKET_CONNECT_AND_DISCONNECT_LISTENERS=true
       - SOCKET_MESSAGE_BROKER_STATS_LOGGING_PERIOD_SECONDS=60
       - SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE=30
