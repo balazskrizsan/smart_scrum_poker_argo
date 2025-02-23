@@ -17,6 +17,6 @@ patches:
         {
           "op": "replace",
           "path": "/spec/template/spec/containers/0/volumeMounts/1/subPath",
-          "value": "secret-path-prod.json"
+          "value": "secret.path"
         }
       ]
