@@ -1,0 +1,45 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: smart-scrum-poker-uat
+
+resources:
+  - ../../templates/app-frontend
+
+patches:
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: ssp-frontend
+    patch: |-
+      [
+        {
+          "op": "replace",
+          "path": "/spec/template/spec/containers/0/image",
+          "value": "kbalazsworks/smart_scrum_poker_frontend:prod_commit_sha_short_73d5741"
+        }
+      ]
+
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: ssp-ingress-frontend
+    patch: |-
+      [
+        {
+          "op": "replace",
+          "path": "/spec/rules/0/http/paths/0/backend/service/port/number",
+          "value": 48010
+        },
+        {
+          "op": "replace",
+          "path": "/spec/rules/0/host",
+          "value": "smart-scrum-poker.uat.balazskrizsan.com"
+        },
+        {
+          "op": "replace",
+          "path": "/spec/tls/0/hosts",
+          "value": [ "smart-scrum-poker.uat.balazskrizsan.com" ]
+        }
+      ]

@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: smart-scrum-poker-uat
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: backend-config
+    namespace: smart-scrum-poker-uat
+    literals:
+      - NATIVE_REFLECTION_CONFIGURATION_GENERATOR_ENABLED=false
+      - SERVER_ENV=UAT
+      - SERVER_PORT=8080
+      - SERVER_SOCKET_FULL_HOST=wss://smart-scrum-poker.uat.balazskrizsan.com/ws
+      - SERVER_SSL_ENABLED=false
+      - SERVER_SSL_KEY_STORE=classpath:keystore/dev.p12
+      - SITE_DOMAIN=smart-scrum-poker.uat.balazskrizsan.com
+      - SITE_FRONTEND_HOST=https://smart-scrum-poker.uat.balazskrizsan.com/
+      - SOCKET_IS_ENABLED_SOCKET_CONNECT_AND_DISCONNECT_LISTENERS=true
+      - SOCKET_MESSAGE_BROKER_STATS_LOGGING_PERIOD_SECONDS=60
+      - SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE=30
+      - SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE=30
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://backend-psql-service:47030/smartscrumpoker

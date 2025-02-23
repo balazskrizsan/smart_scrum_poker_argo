@@ -1,0 +1,52 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: smart-scrum-poker-uat
+
+resources:
+  - config
+  - ../../templates/app-config/insecure-psql-config
+  - ../../templates/app-backend
+
+patches:
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: ssp-backend
+    patch: |-
+      [
+        {
+          "op": "replace",
+          "path": "/spec/template/spec/containers/0/image",
+          "value": "kbalazsworks/smart_scrum_poker_backend_native:commit_sha_short_764f243"
+        },
+        {
+          "op": "replace",
+          "path": "/spec/template/spec/initContainers/0/command/2",
+          "value": "while [ \"$(kubectl get job secret-manager-job -n smart-scrum-poker-uat -o=jsonpath='{.status.succeeded}')\" != \"1\" ]; do\n  echo \"Waiting for pre-deploy job completion...\";\n  sleep 2;\n done"
+        }
+      ]
+
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: ssp-ingress-backend
+    patch: |-
+      [
+        {
+          "op": "replace",
+          "path": "/spec/rules/0/http/paths/0/backend/service/port/number",
+          "value": 46001
+        },
+        {
+          "op": "replace",
+          "path": "/spec/rules/0/host",
+          "value": "api.smart-scrum-poker.uat.balazskrizsan.com"
+        },
+        {
+          "op": "replace",
+          "path": "/spec/tls/0/hosts",
+          "value": ["api.smart-scrum-poker.uat.balazskrizsan.com"]
+        }
+      ]
