@@ -4,19 +4,3 @@ namespace: smart-scrum-poker-prod
 
 resources:
   - ./../../templates/jobs
-
-patches:
-  - target:
-      group: batch
-      version: v1
-      kind: Job
-      name: secret-manager-job
-      namespace: smart-scrum-poker-prod
-    patch: |-
-      [
-        {
-          "op": "replace",
-          "path": "/spec/template/spec/containers/0/volumeMounts/1/subPath",
-          "value": "secret.path"
-        }
-      ]
