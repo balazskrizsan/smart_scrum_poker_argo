@@ -1,7 +1,5 @@
-cluster_init/set-google-service-account.yaml
-
 ### App ###
-src/setup/set-google-service-account.yaml
+cluster_init/accounts/google-service-account.yaml
 
 ### Maven ###
 target/
