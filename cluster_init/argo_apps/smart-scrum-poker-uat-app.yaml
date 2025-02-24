@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: smart-scrum-poker-prod
+    namespace: smart-scrum-poker-uat
     server: https://kubernetes.default.svc
   project: default
   source:
