@@ -8,3 +8,5 @@ resources:
 
 patches:
   - path: elasticsearch-patch.yaml
+  - path: kibana-patch.yaml
+  - path: logstash-patch.yaml

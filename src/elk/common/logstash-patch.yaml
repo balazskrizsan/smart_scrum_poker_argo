@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: elasticsearch
+  name: logstash
   namespace: smart-scrum-poker-elk-common
 spec:
   template:
     spec:
       containers:
-        - name: elasticsearch
+        - name: logstash
           env:
-            - name: ES_JAVA_OPTS
+            - name: LS_JAVA_OPTS
               value: "-Xms512m -Xmx512m"
           resources:
             requests:
               cpu: "500m"
-              memory: "700Mi"
+              memory: "512Mi"
             limits:
-              cpu: "1500m"
-              memory: "2Gi"
+              cpu: "1000m"
+              memory: "1Gi"
