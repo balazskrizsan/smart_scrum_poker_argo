@@ -4,15 +4,11 @@ metadata:
   name: kibana-ingress
   namespace: smart-scrum-poker-elk-common
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
-  tls:
-    - hosts:
-        - "local-elk-kibana.balazskrizsan.com"
-      secretName: cert
   rules:
-    - host: "local-elk-kibana.balazskrizsan.com"
+    - host: "kibana.smart-scrum-poker.balazskrizsan.com"
       http:
         paths:
           - path: /
