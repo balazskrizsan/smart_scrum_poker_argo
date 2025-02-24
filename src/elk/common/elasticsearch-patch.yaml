@@ -10,7 +10,7 @@ spec:
         - name: elasticsearch
           env:
             - name: ES_JAVA_OPTS
-              value: "-Xms1g -Xmx1536m"
+              value: "-Xms1g -Xmx1g"
           resources:
             requests:
               cpu: "1000m"
@@ -18,3 +18,24 @@ spec:
             limits:
               cpu: "2000m"
               memory: "2Gi"
+
+        - name: logstash
+          env:
+            - name: LS_JAVA_OPTS
+              value: "-Xms512m -Xmx512m"
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"
+
+        - name: kibana
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"
