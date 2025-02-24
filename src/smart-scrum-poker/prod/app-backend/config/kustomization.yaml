@@ -22,3 +22,4 @@ configMapGenerator:
       - SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE=30
       - SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE=30
       - SPRING_DATASOURCE_URL=jdbc:postgresql://backend-psql-service:47030/smartscrumpoker
+      - LOGBACK_FULL_URL="logstash.smart-scrum-poker-elk-common.svc.cluster.local:5044"
