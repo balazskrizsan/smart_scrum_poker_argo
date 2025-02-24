@@ -10,7 +10,7 @@ spec:
         - name: elasticsearch
           env:
             - name: ES_JAVA_OPTS
-              value: "-Xms1g -Xmx1.5g"
+              value: "-Xms1g -Xmx1536m"
           resources:
             requests:
               cpu: "1000m"
