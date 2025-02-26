@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kibana
-  namespace: smart-scrum-poker-elk-common
   labels:
     app: kibana
 spec:

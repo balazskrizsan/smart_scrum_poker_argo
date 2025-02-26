@@ -2,7 +2,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: elasticsearch
-  namespace: smart-scrum-poker-elk-common
 spec:
   selector:
     app: elasticsearch
