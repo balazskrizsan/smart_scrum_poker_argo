@@ -3,9 +3,8 @@ kind: Kustomization
 namespace: smart-scrum-poker-prod
 
 resources:
-  - ./../../smart-scrum-poker/prod/cluster-config
-  - ./../../smart-scrum-poker/prod/jobs
-  - ./../../smart-scrum-poker/prod/namespace-config
-  - ./../../smart-scrum-poker/prod/app-backend
-  - ./../../smart-scrum-poker/prod/app-frontend
-  - ../../ssp-configs/ssp-backend-prod-version
+  - ../../smart-scrum-poker/prod/cluster-config
+  - ../../smart-scrum-poker/prod/jobs
+  - ../../smart-scrum-poker/prod/namespace-config
+  - ../../smart-scrum-poker/prod/app-backend
+  - ../../smart-scrum-poker/prod/app-frontend

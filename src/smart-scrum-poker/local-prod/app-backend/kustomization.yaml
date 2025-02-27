@@ -3,14 +3,30 @@ kind: Kustomization
 namespace: smart-scrum-poker-local-prod
 
 resources:
-  - ./config
-  - ./../../templates/app-config/insecure-psql-config
-  - ./../../templates/app-backend
-
-patchesStrategicMerge:
-  - ./../../../ssp-configs/ssp-backend-prod-version.yaml
+  - config
+  - ../../templates/app-config/insecure-psql-config
+  - ../../templates/app-backend
 
 patches:
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: ssp-backend
+    patch: |-
+      [
+        {
+          "op": "replace",
+          "path": "/spec/template/spec/containers/0/image",
+          "value": "kbalazsworks/smart_scrum_poker_backend_native:commit_sha_short_fd81e5b"
+        },
+        {
+          "op": "replace",
+          "path": "/spec/template/spec/initContainers/0/command/2",
+          "value": "while [ \"$(kubectl get job secret-manager-job -n smart-scrum-poker-local-prod -o=jsonpath='{.status.succeeded}')\" != \"1\" ]; do\n  echo \"Waiting for pre-deploy job completion...\";\n  sleep 2;\n done"
+        }
+      ]
+
   - target:
       group: networking.k8s.io
       version: v1

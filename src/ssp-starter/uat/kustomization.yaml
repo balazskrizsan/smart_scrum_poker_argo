@@ -3,9 +3,8 @@ kind: Kustomization
 namespace: smart-scrum-poker-uat
 
 resources:
-  - ./../../smart-scrum-poker/uat/cluster-config
-  - ./../../smart-scrum-poker/uat/jobs
-  - ./../../smart-scrum-poker/uat/namespace-config
-  - ./../../smart-scrum-poker/uat/app-backend
-  - ./../../smart-scrum-poker/uat/app-frontend
-  - ../../ssp-configs/ssp-backend-uat-version
+  - ../../smart-scrum-poker/uat/cluster-config
+  - ../../smart-scrum-poker/uat/jobs
+  - ../../smart-scrum-poker/uat/namespace-config
+  - ../../smart-scrum-poker/uat/app-backend
+  - ../../smart-scrum-poker/uat/app-frontend
