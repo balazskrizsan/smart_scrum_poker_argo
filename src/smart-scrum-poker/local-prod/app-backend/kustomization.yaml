@@ -7,8 +7,10 @@ resources:
   - ./../../templates/app-config/insecure-psql-config
   - ./../../templates/app-backend
 
+patchesStrategicMerge:
+  - ./../../../ssp-configs/ssp-backend-prod-version.yaml
+
 patches:
-  - path: ./../../../ssp-configs/ssp-backend-prod-version.yaml
   - target:
       group: networking.k8s.io
       version: v1
