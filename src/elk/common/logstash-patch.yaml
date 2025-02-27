@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: logstash
-  namespace: smart-scrum-poker-elk-common
 spec:
   template:
     spec:
