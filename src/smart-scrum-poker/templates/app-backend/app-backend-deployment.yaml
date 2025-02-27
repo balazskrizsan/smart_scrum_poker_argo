@@ -15,13 +15,6 @@ spec:
         app: ssp-backend-label
         service: ssp-backend
     spec:
-      initContainers:
-        - name: wait-for-job
-          image: bitnami/kubectl
-          command:
-            - "sh"
-            - "-c"
-            - "placeholder: while [ \"$(kubectl get job secret-manager-job -n ENV_NAME -o=jsonpath='{.status.succeeded}')\" != \"1\" ]; do\n  echo \"Waiting for pre-deploy job completion...\";\n  sleep 2;\n done"
       containers:
         - name: ssp-backend
           image: placeholder:placeholder
