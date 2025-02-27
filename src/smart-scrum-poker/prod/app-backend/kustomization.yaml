@@ -6,6 +6,7 @@ resources:
   - ./config
   - ./../../templates/app-config/insecure-psql-config
   - ./../../templates/app-backend
+  - ./../../../ssp-configs/ssp-backend-prod-version
 
 patches:
   - target:

@@ -8,4 +8,3 @@ resources:
   - ./../../smart-scrum-poker/local-prod/namespace-config
   - ./../../smart-scrum-poker/local-prod/app-backend
   - ./../../smart-scrum-poker/local-prod/app-frontend
-  - ../../ssp-configs/ssp-backend-prod-version
