@@ -1,5 +1,6 @@
 ### App ###
 cluster_init/accounts/google-service-account.yaml
+cluster_init/accounts/local-google-service-account.yaml
 
 ### Maven ###
 target/
