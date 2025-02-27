@@ -1,15 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: smart-scrum-poker-elk-local-common-app
+  name: smart-scrum-poker-local-prod-app
   namespace: argocd
 spec:
   destination:
-    namespace: smart-scrum-poker-elk-local-common
+    namespace: smart-scrum-poker-local-prod
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: src/elk-starter/local-common
+    path: src/ssp-starter/local-prod
     repoURL: https://github.com/balazskrizsan/smart_scrum_poker_argo
     targetRevision: main
   syncPolicy:

@@ -1,4 +1,4 @@
-kubectl delete -f ./set-google-service-account.yaml
+kubectl delete -f ./accounts/google-service-account.yaml
 kubectl delete -f ./cluster-extensions/argocd-ingress.yaml
 kubectl delete -f ./cluster-extensions/minikube-dashboard-ingress.yaml
 

@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: src/all-in-one-start--uat
+    path: src/ssp-starter/uat
     repoURL: https://github.com/balazskrizsan/smart_scrum_poker_argo
     targetRevision: main
   syncPolicy:
