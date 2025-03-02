@@ -18,7 +18,7 @@ patches:
         {
           "op": "replace",
           "path": "/spec/template/spec/containers/0/image",
-          "value": "kbalazsworks/smart_scrum_poker_backend_native:commit_sha_short_764f243"
+          "value": "kbalazsworks/smart_scrum_poker_backend_native:commit_sha_short_228b581"
         }
       ]
 
