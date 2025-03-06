@@ -1,1 +1,1 @@
-kubectl.exe apply -k . --v=6
+kubectl apply -k . --v=6

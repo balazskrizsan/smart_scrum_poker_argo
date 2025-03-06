@@ -1,1 +1,1 @@
-kubectl.exe delete -k .
+kubectl delete -k .
