@@ -15,6 +15,7 @@ data:
     output {
       elasticsearch {
         hosts => ["http://elasticsearch:9200"]
+        index => "logs"
       }
     }
 
