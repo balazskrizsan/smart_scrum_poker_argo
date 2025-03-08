@@ -12,10 +12,20 @@ data:
       }
     }
 
+    filter {
+      if [serverEnv] == "PROD" {
+        mutate { add_field => { "target_index" => "logs-prod" } }
+      } else if [serverEnv] == "UAT" {
+        mutate { add_field => { "target_index" => "logs-uat" } }
+      } else {
+        mutate { add_field => { "target_index" => "logs-fallback" } }
+      }
+    }
+
     output {
       elasticsearch {
         hosts => ["http://elasticsearch:9200"]
-        index => "logs"
+        index => "%{target_index}"
       }
     }
 
