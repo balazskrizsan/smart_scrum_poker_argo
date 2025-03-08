@@ -13,6 +13,7 @@ data:
     }
 
     filter {
+      mutate { add_field => { "env_check" => "%{env}" } }
       if [env] == "PROD" {
         mutate { add_field => { "target_index" => "logs-prod" } }
       } elsif [env] == "UAT" {
