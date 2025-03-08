@@ -15,7 +15,7 @@ data:
     filter {
       if [env] == "PROD" {
         mutate { add_field => { "target_index" => "logs-prod" } }
-      } else if [env] == "UAT" {
+      } elsif [env] == "UAT" {
         mutate { add_field => { "target_index" => "logs-uat" } }
       } else {
         mutate { add_field => { "target_index" => "logs-fallback" } }
