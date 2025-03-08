@@ -13,9 +13,9 @@ data:
     }
 
     filter {
-      if [serverEnv] == "PROD" {
+      if [env] == "PROD" {
         mutate { add_field => { "target_index" => "logs-prod" } }
-      } else if [serverEnv] == "UAT" {
+      } else if [env] == "UAT" {
         mutate { add_field => { "target_index" => "logs-uat" } }
       } else {
         mutate { add_field => { "target_index" => "logs-fallback" } }
