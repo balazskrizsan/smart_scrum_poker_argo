@@ -24,3 +24,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: insecure-psql-config
+          volumeMounts:
+            - mountPath: "/var/lib/postgresql/data"
+              name: postgresql-storage
+      volumes:
+        - name: postgresql-storage
+          persistentVolumeClaim:
+            claimName: postgresql-persistent-volume-claim
