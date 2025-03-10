@@ -13,10 +13,13 @@ data:
     }
 
     filter {
-      mutate { add_field => { "env_check" => "%{env}" } }
+      if ![env] {
+        mutate { add_field => { "env" => "UNKNOWN" } }
+      }
+      
       if [env] == "PROD" {
         mutate { add_field => { "target_index" => "logs-prod" } }
-      } elsif [env] == "UAT" {
+      } else if [env] == "UAT" {
         mutate { add_field => { "target_index" => "logs-uat" } }
       } else {
         mutate { add_field => { "target_index" => "logs-fallback" } }
