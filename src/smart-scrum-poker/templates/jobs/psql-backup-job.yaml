@@ -1,0 +1,44 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: psql-backup
+  namespace: smart-scrum-poker-local-prod
+spec:
+  schedule: "* * * * *"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: psql-backup
+              image: postgres:16.2
+              envFrom:
+                - configMapRef:
+                    name: insecure-psql-config
+                - secretRef:
+                    name: cloud-secrets
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  apt-get update
+                  apt-get install -y curl unzip
+                  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/awscliv2.zip"
+                  unzip /awscliv2.zip
+                  ./aws/install
+
+                  /usr/local/bin/aws configure set aws_access_key_id "$AWS_S3_SERVICE_ACCOUNT_ACCESS_KEY_ID"
+                  /usr/local/bin/aws configure set aws_secret_access_key "$AWS_S3_SERVICE_ACCOUNT_ACCESS_KEY"
+                  /usr/local/bin/aws configure set region "$AWS_S3_BACKUP_REGION"
+
+                  mkdir -p "$AWS_S3_BACKUP_SSP_PSQL_PATH"
+                  BACKUP_FILE="$AWS_S3_BACKUP_SSP_PSQL_PATH/dump-$(date +%Y-%m-%d_%H:%M:%S).sql"
+
+                  PGPASSWORD=$POSTGRES_PASSWORD pg_dump -h backend-psql-service -p 47030 -U $POSTGRES_USER -d $POSTGRES_DB -F c -f $BACKUP_FILE
+
+                  /usr/local/bin/aws s3 cp "$BACKUP_FILE" "s3://$AWS_S3_BACKUP_BUCKET$BACKUP_FILE"
+
+                  rm -f "$BACKUP_FILE"
+          restartPolicy: OnFailure

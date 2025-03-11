@@ -1,3 +1,4 @@
 resources:
+  - psql-backup-job.yaml
   - secret-manager-job.yaml
   - cert-manager-job.yaml
