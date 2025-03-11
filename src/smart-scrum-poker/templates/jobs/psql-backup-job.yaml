@@ -4,7 +4,7 @@ metadata:
   name: psql-backup
   namespace: smart-scrum-poker-local-prod
 spec:
-  schedule: "* * * * *"
+  schedule: "0 0 * * *"
   successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 1
   jobTemplate:
