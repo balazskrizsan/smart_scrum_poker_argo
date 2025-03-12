@@ -36,10 +36,5 @@ patches:
           "op": "replace",
           "path": "/spec/rules/0/host",
           "value": "smart-scrum-poker.uat.balazskrizsan.com"
-        },
-        {
-          "op": "replace",
-          "path": "/spec/tls/0/hosts",
-          "value": [ "smart-scrum-poker.uat.balazskrizsan.com" ]
         }
       ]
