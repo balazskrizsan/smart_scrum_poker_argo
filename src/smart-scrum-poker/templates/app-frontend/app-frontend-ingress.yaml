@@ -7,10 +7,6 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   ingressClassName: nginx
-  tls:
-    - hosts:
-        - "ssp-placeholder.balazskrizsan.com"
-      secretName: cert-frontend
   rules:
     - host: "ssp-placeholder.balazskrizsan.com"
       http:

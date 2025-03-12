@@ -12,13 +12,9 @@ patches:
       kind: Deployment
       name: ssp-frontend
     patch: |-
-      [
-        {
-          "op": "replace",
-          "path": "/spec/template/spec/containers/0/image",
-          "value": "kbalazsworks/smart_scrum_poker_frontend:prod_commit_sha_short_73d5741"
-        }
-      ]
+      - op: replace
+        path: /spec/template/spec/containers/0/image
+        value: kbalazsworks/smart_scrum_poker_frontend:prod_commit_sha_short_73d5741
 
   - target:
       group: networking.k8s.io
@@ -26,20 +22,15 @@ patches:
       kind: Ingress
       name: ssp-ingress-frontend
     patch: |-
-      [
-        {
-          "op": "replace",
-          "path": "/spec/rules/0/http/paths/0/backend/service/port/number",
-          "value": 48010
-        },
-        {
-          "op": "replace",
-          "path": "/spec/rules/0/host",
-          "value": "smart-scrum-poker.localhost.balazskrizsan.com"
-        },
-        {
-          "op": "replace",
-          "path": "/spec/tls/0/hosts",
-          "value": [ "smart-scrum-poker.localhost.balazskrizsan.com" ]
-        }
-      ]
+      - op: replace
+        path: /spec/rules/0/http/paths/0/backend/service/port/number
+        value: 48010
+      - op: replace
+        path: /spec/rules/0/host
+        value: smart-scrum-poker.localhost.balazskrizsan.com
+      - op: add
+        path: /spec/tls
+        value:
+          - hosts:
+              - smart-scrum-poker.localhost.balazskrizsan.com
+            secretName: env-cert
