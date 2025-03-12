@@ -23,8 +23,13 @@ spec:
             - |
               mkdir /certs
 
+              echo $CERTIFICATE_CRT_PATH
+              echo $CERTIFICATE_PRIVATE_KEY_PATH
+
               curl -o /certs/certificate.crt "$CERTIFICATE_CRT_PATH"
               curl -o /certs/private.key "$CERTIFICATE_PRIVATE_KEY_PATH"
+
+              ls -hal /certs
 
               kubectl delete secret env-cert -n $NAMESPACE_NAME --ignore-not-found=false
               kubectl create secret tls env-cert \
