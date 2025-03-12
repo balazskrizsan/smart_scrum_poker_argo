@@ -9,38 +9,25 @@ metadata:
 spec:
   template:
     spec:
+      restartPolicy: Never
       containers:
         - name: kubectl
           image: adelchouchene/kubectl-curl
           command: ["/bin/sh", "-c"]
+          envFrom:
+            - secretRef:
+                name: cloud-secrets
+            - configMapRef:
+                name: namespace-config
           args:
             - |
               mkdir /certs
 
-              curl -o /certs/certificate.crt $(cat /certpaths/certificate.crt.path)
-              curl -o /certs/private.key $(cat /certpaths/private.key.path)
+              curl -o /certs/certificate.crt "$CERTIFICATE_CRT_PATH"
+              curl -o /certs/private.key "$CERTIFICATE_PRIVATE_KEY_PATH"
 
-              kubectl delete secret secret-tls-prod -n $(cat /namespace-name.txt) --ignore-not-found=false
-              kubectl create secret tls secret-tls-prod \
-              -n $(cat /namespace-name.txt) \
-              --key /certs/private.key \
-              --cert /certs/certificate.crt
-
-          volumeMounts:
-            - name: cloud-secrets-volume
-              mountPath: /certpaths/private.key.path
-              subPath: private.key.path
-            - name: cloud-secrets-volume
-              mountPath: /certpaths/certificate.crt.path
-              subPath: certificate.crt.path
-            - name: namespace-config-volume
-              mountPath: /namespace-name.txt
-              subPath: NAMESPACE_NAME
-      restartPolicy: Never
-      volumes:
-        - name: cloud-secrets-volume
-          secret:
-            secretName: cloud-secrets
-        - name: namespace-config-volume
-          configMap:
-            name: namespace-config
+              kubectl delete secret env-cert -n $NAMESPACE_NAME --ignore-not-found=false
+              kubectl create secret tls env-cert \
+                -n $NAMESPACE_NAME \
+                --key /certs/private.key \
+                --cert /certs/certificate.crt
