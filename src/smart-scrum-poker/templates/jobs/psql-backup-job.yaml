@@ -32,12 +32,22 @@ spec:
                   /usr/local/bin/aws configure set aws_secret_access_key "$AWS_S3_SERVICE_ACCOUNT_ACCESS_KEY"
                   /usr/local/bin/aws configure set region "$AWS_S3_BACKUP_REGION"
 
+                  # Backup and save to S3
+
                   mkdir -p "$AWS_S3_BACKUP_SSP_PSQL_PATH"
-                  BACKUP_FILE="$AWS_S3_BACKUP_SSP_PSQL_PATH/dump-$(date +%Y-%m-%d_%H:%M:%S).sql"
+                  BACKUP_FILE="dump-$(date +%Y-%m-%d_%H:%M:%S).sql"
+                  BACKUP_FILE_WITH_PATH="$AWS_S3_BACKUP_SSP_PSQL_PATH/$BACKUP_FILE"
 
-                  PGPASSWORD=$POSTGRES_PASSWORD pg_dump -h backend-psql-service -p 47030 -U $POSTGRES_USER -d $POSTGRES_DB -F c -f $BACKUP_FILE
+                  PGPASSWORD=$POSTGRES_PASSWORD pg_dump -h backend-psql-service -p 47030 -U $POSTGRES_USER -d $POSTGRES_DB -F c -f $BACKUP_FILE_WITH_PATH
 
-                  /usr/local/bin/aws s3 cp "$BACKUP_FILE" "s3://$AWS_S3_BACKUP_BUCKET$BACKUP_FILE"
+                  /usr/local/bin/aws s3 cp "$BACKUP_FILE_WITH_PATH" "s3://$AWS_S3_BACKUP_BUCKET$BACKUP_FILE_WITH_PATH"
 
-                  rm -f "$BACKUP_FILE"
+                  # Save the last uploaded filename to S3
+
+                  LATEST_BACKUP_FILE="$AWS_S3_BACKUP_SSP_PSQL_PATH/latest.txt"
+                  echo "$BACKUP_FILE_WITH_PATH" > "$AWS_S3_BACKUP_SSP_PSQL_PATH/latest.txt"
+
+                  /usr/local/bin/aws s3 cp "$LATEST_BACKUP_FILE" "s3://$AWS_S3_BACKUP_BUCKET$LATEST_BACKUP_FILE"
+
+                  rm -f "$BACKUP_FILE_WITH_PATH"
           restartPolicy: OnFailure
