@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: smart-scrum-poker-local-prod-app
+  name: ssp-local-prod-app
   namespace: argocd
 spec:
   destination:
