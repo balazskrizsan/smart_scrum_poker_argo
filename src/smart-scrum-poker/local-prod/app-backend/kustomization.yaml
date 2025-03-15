@@ -4,6 +4,8 @@ namespace: smart-scrum-poker-local-prod
 
 resources:
   - config
+  - psql-local-prod-persistent-volume.yaml
+  - psql-local-prod-persistent-volume-claim.yaml
   - ../../templates/app-config/insecure-psql-config
   - ../../templates/app-backend
 

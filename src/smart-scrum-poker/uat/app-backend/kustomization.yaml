@@ -4,6 +4,8 @@ namespace: smart-scrum-poker-uat
 
 resources:
   - config
+  - psql-uat-persistent-volume.yaml
+  - psql-uat-persistent-volume-claim.yaml
   - ../../templates/app-config/insecure-psql-config
   - ../../templates/app-backend
 
@@ -19,20 +21,6 @@ patches:
           "op": "replace",
           "path": "/spec/template/spec/containers/0/image",
           "value": "kbalazsworks/smart_scrum_poker_backend_native:commit_sha_short_5322ba9"
-        }
-      ]
-
-  - target:
-      group: apps
-      version: v1
-      kind: PersistentVolume
-      name: postgresql-persistent-volume
-    patch: |-
-      [
-        {
-          "op": "replace",
-          "path": "/spec/hostPath/path",
-          "value": "/mnt/ssp/uat_psql_data"
         }
       ]
 
