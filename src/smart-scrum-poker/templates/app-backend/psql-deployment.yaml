@@ -30,4 +30,4 @@ spec:
       volumes:
         - name: postgresql-storage
           persistentVolumeClaim:
-            claimName: postgresql-persistent-volume-claim
+            claimName: placeholder-postgresql-persistent-volume-claim

@@ -25,6 +25,16 @@ patches:
       ]
 
   - target:
+      group: apps
+      version: v1
+      kind: PersistentVolume
+      name: psql-local-prod-persistent-volume
+    patch: |-
+      - op: replace
+        path: "/spec/template/spec/volumes/0/persistentVolumeClaim/claimName"
+        value: "psql-local-prod-persistent-volume-claim"
+
+  - target:
       group: networking.k8s.io
       version: v1
       kind: Ingress
