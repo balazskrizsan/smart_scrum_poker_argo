@@ -16,13 +16,9 @@ patches:
       kind: Deployment
       name: ssp-backend
     patch: |-
-      [
-        {
-          "op": "replace",
-          "path": "/spec/template/spec/containers/0/image",
-          "value": "kbalazsworks/smart_scrum_poker_backend_native:commit_sha_short_fd81e5b"
-        }
-      ]
+      - op: replace
+        path: /spec/template/spec/containers/0/image
+        value: kbalazsworks/smart_scrum_poker_backend_native:commit_sha_short_fd81e5b
 
   - target:
       group: apps
@@ -31,8 +27,8 @@ patches:
       name: backend-psql
     patch: |-
       - op: replace
-        path: "/spec/template/spec/volumes/0/persistentVolumeClaim/claimName"
-        value: "psql-local-prod-persistent-volume-claim"
+        path: /spec/template/spec/volumes/0/persistentVolumeClaim/claimName
+        value: psql-local-prod-persistent-volume-claim
 
   - target:
       group: networking.k8s.io
@@ -40,20 +36,15 @@ patches:
       kind: Ingress
       name: ssp-ingress-backend
     patch: |-
-      [
-        {
-          "op": "replace",
-          "path": "/spec/rules/0/http/paths/0/backend/service/port/number",
-          "value": 46001
-        },
-        {
-          "op": "replace",
-          "path": "/spec/rules/0/host",
-          "value": "api--smart-scrum-poker.localhost.balazskrizsan.com"
-        },
-        {
-          "op": "replace",
-          "path": "/spec/tls/0/hosts",
-          "value": ["api--smart-scrum-poker.localhost.balazskrizsan.com"]
-        }
-      ]
+      - op: replace
+        path: /spec/rules/0/http/paths/0/backend/service/port/number
+        value: 46001
+
+      - op: replace
+        path: /spec/rules/0/host
+        value: api--smart-scrum-poker.localhost.balazskrizsan.com
+
+      - op: replace
+        path: /spec/tls/0/hosts
+        value:
+          - api--smart-scrum-poker.localhost.balazskrizsan.com
