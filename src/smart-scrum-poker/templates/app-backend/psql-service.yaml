@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: backend-psql-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 47030
       targetPort: 5432
