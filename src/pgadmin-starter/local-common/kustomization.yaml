@@ -19,13 +19,11 @@ patches:
               - pgadmin.localhost.balazskrizsan.com
             secretName: env-cert
 
-      - op: add
-        path: /spec/rules
-        value: 
-          - host: pgadmin.localhost.balazskrizsan.com
-            http:
-              paths:
-                - backend:
-                    service:
-                      port:
-                        number: 48090
+      - op: replace
+        path: /spec/rules/0/host
+        value: pgadmin.localhost.balazskrizsan.com
+
+      - op: replace
+        path: /spec/tls/0/hosts
+        value:
+          - pgadmin.localhost.balazskrizsan.com
