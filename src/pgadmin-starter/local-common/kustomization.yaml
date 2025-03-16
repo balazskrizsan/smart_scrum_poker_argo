@@ -20,7 +20,7 @@ patches:
             secretName: env-cert
 
       - op: replace
-        path: /spec/rules/0
+        path: /spec/rules
         value: 
           - host: pgadmin.localhost.balazskrizsan.com
             http:
