@@ -19,7 +19,7 @@ patches:
               - pgadmin.localhost.balazskrizsan.com
             secretName: env-cert
 
-      - op: replace
+      - op: add
         path: /spec/rules
         value: 
           - host: pgadmin.localhost.balazskrizsan.com
