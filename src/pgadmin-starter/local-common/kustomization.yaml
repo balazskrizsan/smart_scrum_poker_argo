@@ -20,10 +20,9 @@ patches:
             secretName: env-cert
 
       - op: replace
-        path: /spec/rules/0/host
-        value: pgadmin.localhost.balazskrizsan.com
+        path: /spec/rules/0/http/paths/0/backend/service/port/number
+        value: 48090
 
       - op: replace
-        path: /spec/tls/0/hosts
-        value:
-          - pgadmin.localhost.balazskrizsan.com
+        path: /spec/rules/0/host
+        value: smart-scrum-poker.localhost.balazskrizsan.com
