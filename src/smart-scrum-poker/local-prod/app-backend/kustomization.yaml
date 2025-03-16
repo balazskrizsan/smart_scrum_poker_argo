@@ -31,6 +31,16 @@ patches:
         value: psql-local-prod-persistent-volume-claim
 
   - target:
+      group: ""
+      version: v1
+      kind: Service
+      name: backend-psql-service
+    patch: |-
+      - op: replace
+        path: /spec/type
+        value: LoadBalancer
+
+  - target:
       group: networking.k8s.io
       version: v1
       kind: Ingress
