@@ -22,7 +22,7 @@ spec:
   tls:
     - hosts:
         - "ssp-placeholder.balazskrizsan.com"
-      secretName: cert-frontend
+      secretName: env-cert
   rules:
     - host: "api-ssp-placeholder.balazskrizsan.com"
       http:

@@ -9,7 +9,7 @@ spec:
   tls:
     - hosts:
         - "logstash.smart-scrum-poker.balazskrizsan.com"
-      secretName: cert
+      secretName: env-ert
   rules:
     - host: "logstash.smart-scrum-poker.balazskrizsan.com"
       http:
