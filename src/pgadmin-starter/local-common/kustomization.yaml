@@ -16,13 +16,13 @@ patches:
         path: /spec/tls
         value:
           - hosts:
-              - pgadmin.localhost.balazskrizsan.com
+              - pgadmin--smart-scrum-poker.localhost.balazskrizsan.com
             secretName: env-cert
 
       - op: replace
         path: /spec/rules/0/http/paths/0/backend/service/port/number
-        value: 48090
+        value: 4100
 
       - op: replace
         path: /spec/rules/0/host
-        value: pgadmin.localhost.balazskrizsan.com
+        value: pgadmin--smart-scrum-poker.localhost.balazskrizsan.com
