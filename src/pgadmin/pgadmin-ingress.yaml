@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: pgadmin--smart-scrum-poker.localhost.balazskrizsan.com
+    - host: placeholder.balazskrizsan.com
       http:
         paths:
           - path: /
