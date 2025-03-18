@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: src/pgadmin-starter/local
+    path: src/pgadmin-starter/common
     repoURL: https://github.com/balazskrizsan/smart_scrum_poker_argo
     targetRevision: main
   syncPolicy:
