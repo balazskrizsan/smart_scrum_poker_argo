@@ -1,1 +1,1 @@
-./start-local/start-pgadmin.sh
+./start/start-pgadmin.sh
