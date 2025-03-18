@@ -10,7 +10,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/ports/0/port
-        value: 4000
+        value: 4001
 
   - target: { group: networking.k8s.io, version: v1, kind: Ingress, name: pgadmin-ingress }
     patch: |-
@@ -18,13 +18,13 @@ patches:
         path: /spec/tls
         value:
           - hosts:
-              - pgadmin--smart-scrum-poker.localhost.balazskrizsan.com
+              - pgadmin.smart-scrum-poker.balazskrizsan.com
             secretName: env-cert
 
       - op: replace
         path: /spec/rules/0/http/paths/0/backend/service/port/number
-        value: 4000
+        value: 4001
 
       - op: replace
         path: /spec/rules/0/host
-        value: pgadmin--smart-scrum-poker.localhost.balazskrizsan.com
+        value: pgadmin.smart-scrum-poker.balazskrizsan.com
