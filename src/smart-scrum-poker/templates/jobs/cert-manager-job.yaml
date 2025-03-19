@@ -12,7 +12,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: kubectl
-          image: adelchouchene/kubectl-curl
+          image: kbalazsworks/kubernetes_job_base_image:0.1
           command: ["/bin/sh", "-c"]
           envFrom:
             - secretRef:
