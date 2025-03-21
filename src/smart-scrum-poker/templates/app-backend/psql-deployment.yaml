@@ -14,6 +14,41 @@ spec:
       labels:
         app: backend-psql-label
     spec:
+      initContainers:
+        - name: wait-for-postgres-init
+          image: kbalazsworks/kubernetes_job_base_image:0.2.1
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+            - -c
+            - |
+              until pg_isready -h backend-psql-service -p 47030 -U $POSTGRES_USER; do
+                echo "PostgreSQL is not ready yet, waiting..."
+                sleep 0.5
+              done
+
+              RESULT=$(PGPASSWORD=$POSTGRES_PASSWORD psql -h backend-psql-service -p 47030 -U $POSTGRES_USER -d $POSTGRES_DB -tc "SELECT COUNT(*) FROM flyway_schema_history;" 2>/dev/null || echo "TABLE_NOT_FOUND")
+
+              if [ "$RESULT" = "TABLE_NOT_FOUND" ] || [ "$RESULT" -le 0 ]; then
+                aws configure set aws_access_key_id "$AWS_S3_SERVICE_ACCOUNT_ACCESS_KEY_ID"
+                aws configure set aws_secret_access_key "$AWS_S3_SERVICE_ACCOUNT_ACCESS_KEY"
+                aws configure set region "$AWS_S3_BACKUP_REGION"
+  
+                LATEST_BACKUP_FILE="$AWS_S3_BACKUP_SSP_PSQL_PATH/latest.txt"
+  
+                mkdir /restore
+  
+                aws s3 cp "s3://$AWS_S3_BACKUP_BUCKET$LATEST_BACKUP_FILE" "/restore/latest.txt"
+
+                aws s3 cp "s3://$AWS_S3_BACKUP_BUCKET$(cat /restore/latest.txt)" "/restore/latest.sql"
+  
+                PGPASSWORD=$POSTGRES_PASSWORD pg_restore -h backend-psql-service -p 47030 -U $POSTGRES_USER -d $POSTGRES_DB --clean --if-exists  /restore/latest.sql
+              fi
+          envFrom:
+            - configMapRef:
+                name: insecure-psql-config
+            - secretRef:
+                name: cloud-secrets
       containers:
         - name: postgres
           image: postgres:16.2
