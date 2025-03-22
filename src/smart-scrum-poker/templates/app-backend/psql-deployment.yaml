@@ -14,33 +14,9 @@ spec:
       labels:
         app: backend-psql-label
     spec:
-      initContainers:
-        - name: wait-for-postgres-init
-          image: kbalazsworks/kubernetes_job_base_image:0.2.1
-          imagePullPolicy: IfNotPresent
-          command:
-            - /bin/sh
-            - -c
-            - |
-              aws configure set aws_access_key_id "$AWS_S3_SERVICE_ACCOUNT_ACCESS_KEY_ID"
-              aws configure set aws_secret_access_key "$AWS_S3_SERVICE_ACCOUNT_ACCESS_KEY"
-              aws configure set region "$AWS_S3_BACKUP_REGION"
-
-              LATEST_BACKUP_FILE="$AWS_S3_BACKUP_SSP_PSQL_PATH/latest.txt"
-
-              aws s3 cp "s3://$AWS_S3_BACKUP_BUCKET$LATEST_BACKUP_FILE" "/last-backup-volume/latest.txt"
-              aws s3 cp "s3://$AWS_S3_BACKUP_BUCKET$(cat /last-backup-volume/latest.txt)" "/last-backup-volume/latest.sql"
-          envFrom:
-            - configMapRef:
-                name: insecure-psql-config
-            - secretRef:
-                name: cloud-secrets
-          volumeMounts:
-            - mountPath: "/postgresql-storage"
-              name: last-backup-volume
       containers:
         - name: postgres
-          image: postgres:16.2
+          image: kbalazsworks/extended_psql:0.1
           ports:
             - containerPort: 5432
           imagePullPolicy: IfNotPresent
@@ -59,6 +35,15 @@ spec:
                     RESULT=$(PGPASSWORD=$POSTGRES_PASSWORD psql -h backend-psql-service -p 47030 -U $POSTGRES_USER -d $POSTGRES_DB -tc "SELECT COUNT(*) FROM flyway_schema_history;" 2>/dev/null || echo "TABLE_NOT_FOUND")
 
                     if [ "$RESULT" = "TABLE_NOT_FOUND" ] || [ "$RESULT" -le 0 ]; then
+                      aws configure set aws_access_key_id "$AWS_S3_SERVICE_ACCOUNT_ACCESS_KEY_ID"
+                      aws configure set aws_secret_access_key "$AWS_S3_SERVICE_ACCOUNT_ACCESS_KEY"
+                      aws configure set region "$AWS_S3_BACKUP_REGION"
+
+                      LATEST_BACKUP_FILE="$AWS_S3_BACKUP_SSP_PSQL_PATH/latest.txt"
+
+                      aws s3 cp "s3://$AWS_S3_BACKUP_BUCKET$LATEST_BACKUP_FILE" "/last-backup-volume/latest.txt"
+                      aws s3 cp "s3://$AWS_S3_BACKUP_BUCKET$(cat /last-backup-volume/latest.txt)" "/last-backup-volume/latest.sql"
+
                       PGPASSWORD=$POSTGRES_PASSWORD pg_restore -h backend-psql-service -p 47030 -U $POSTGRES_USER -d $POSTGRES_DB --clean --if-exists  /postgresql-storage/latest.sql
                     fi
           resources: {}
@@ -68,11 +53,7 @@ spec:
           volumeMounts:
             - mountPath: "/var/lib/postgresql/data"
               name: postgresql-storage
-            - mountPath: "/postgresql-storage"
-              name: last-backup-volume
       volumes:
         - name: postgresql-storage
           persistentVolumeClaim:
             claimName: placeholder-postgresql-persistent-volume-claim
-        - name: last-backup-volume
-          emptyDir: { }
