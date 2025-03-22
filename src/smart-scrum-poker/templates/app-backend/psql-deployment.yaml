@@ -50,6 +50,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: insecure-psql-config
+            - secretRef:
+                name: cloud-secrets
           volumeMounts:
             - mountPath: "/var/lib/postgresql/data"
               name: postgresql-storage
