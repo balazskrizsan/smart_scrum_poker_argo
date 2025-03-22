@@ -27,7 +27,12 @@ spec:
                   - sh
                   - -c
                   - |
-                    echo "teszt"
+                    until pg_isready -h backend-psql-service -p 47030 -U $POSTGRES_USER >> /tmp/postStart.log 2>&1; do
+                      echo "$(date): PostgreSQL is not ready yet" >> /tmp/postStart.log
+                      sleep 0.5
+                    done
+  
+                    echo "$(date): PostgreSQL is ready!" >> /tmp/postStart.log
           resources: {}
           envFrom:
             - configMapRef:
