@@ -27,25 +27,7 @@ spec:
                   - sh
                   - -c
                   - |
-                    until pg_isready -h backend-psql-service -p 47030 -U $POSTGRES_USER; do
-                      echo "PostgreSQL is not ready yet, waiting..."
-                      sleep 0.5
-                    done
-
-                    RESULT=$(PGPASSWORD=$POSTGRES_PASSWORD psql -h backend-psql-service -p 47030 -U $POSTGRES_USER -d $POSTGRES_DB -tc "SELECT COUNT(*) FROM flyway_schema_history;" 2>/dev/null || echo "TABLE_NOT_FOUND")
-
-                    if [ "$RESULT" = "TABLE_NOT_FOUND" ] || [ "$RESULT" -le 0 ]; then
-                      aws configure set aws_access_key_id "$AWS_S3_SERVICE_ACCOUNT_ACCESS_KEY_ID"
-                      aws configure set aws_secret_access_key "$AWS_S3_SERVICE_ACCOUNT_ACCESS_KEY"
-                      aws configure set region "$AWS_S3_BACKUP_REGION"
-
-                      LATEST_BACKUP_FILE="$AWS_S3_BACKUP_SSP_PSQL_PATH/latest.txt"
-
-                      aws s3 cp "s3://$AWS_S3_BACKUP_BUCKET$LATEST_BACKUP_FILE" "/last-backup-volume/latest.txt"
-                      aws s3 cp "s3://$AWS_S3_BACKUP_BUCKET$(cat /last-backup-volume/latest.txt)" "/last-backup-volume/latest.sql"
-
-                      PGPASSWORD=$POSTGRES_PASSWORD pg_restore -h backend-psql-service -p 47030 -U $POSTGRES_USER -d $POSTGRES_DB --clean --if-exists  /postgresql-storage/latest.sql
-                    fi
+                    echo "teszt"
           resources: {}
           envFrom:
             - configMapRef:
