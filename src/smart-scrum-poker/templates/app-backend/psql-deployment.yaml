@@ -16,30 +16,14 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: kbalazsworks/extended_psql:0.1
+          image: postgres:16.2
           ports:
             - containerPort: 5432
           imagePullPolicy: IfNotPresent
-          lifecycle:
-            postStart:
-              exec:
-                command:
-                  - sh
-                  - -c
-                  - |
-                    echo "$POSTGRES_USER"
-                    until pg_isready -h backend-psql-service -p 47030 -U $POSTGRES_USER >> /tmp/postStart.log 2>&1; do
-                      echo "$(date): PostgreSQL is not ready yet" >> /tmp/postStart.log
-                      sleep 0.5
-                    done
-  
-                    echo "$(date): PostgreSQL is ready!" >> /tmp/postStart.log
           resources: {}
           envFrom:
             - configMapRef:
                 name: insecure-psql-config
-            - secretRef:
-                name: cloud-secrets
           volumeMounts:
             - mountPath: "/var/lib/postgresql/data"
               name: postgresql-storage
