@@ -10,7 +10,7 @@ configMapGenerator:
     namespace: smart-scrum-poker-local-prod
     literals:
       - NATIVE_REFLECTION_CONFIGURATION_GENERATOR_ENABLED=false
-      - SERVER_ENV=PROD
+      - SERVER_ENV=LOCAL_PROD
       - SERVER_PORT=8080
       - SERVER_SOCKET_FULL_HOST=wss://smart-scrum-poker.localhost.balazskrizsan.com/ws
       - SERVER_SSL_ENABLED=false
