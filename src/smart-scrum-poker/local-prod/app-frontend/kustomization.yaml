@@ -14,7 +14,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/template/spec/containers/0/image
-        value: kbalazsworks/smart_scrum_poker_frontend:prod_commit_sha_short_73d5741
+        value: kbalazsworks/smart_scrum_poker_frontend:local_prod_commit_sha_short_9f7e600
 
   - target:
       group: networking.k8s.io
