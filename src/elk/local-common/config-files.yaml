@@ -12,21 +12,26 @@ data:
       }
     }
 
-    filter {
-      mutate {
-        lowercase => ["env"]
+    filter
+    {
+      mutate { lowercase => ["env"] }
+
+      if ![env]
+      {
+        mutate { add_field => { "env" => "unknown" } }
       }
 
-      mutate { add_field => { "target_index" => "logs-fallback" } }
-
-      if [env] in ["local_prod", "dev"] {
+      if [env] in ["local_prod", "dev"]
+      {
         mutate { add_field => { "target_index" => "logs-%{env}" } }
-    
-        if [long_term] == "true" {
-          mutate { add_field => { "long_term_index" => "logs-long-term-%{env}" } }
+        if [long_term] == "true"
+        {
+          mutate { add_field => { "long_term_target_index" => "logs-long-term-%{env}" } }
         }
-      } else {
-        mutate { add_field => { "env" => "UNKNOWN" } }
+      }
+      else
+      {
+        mutate { add_field => { "target_index" => "logs-fallback" } }
       }
     }
 
@@ -36,10 +41,10 @@ data:
         index => "%{target_index}"
       }
 
-      if [long_term_index] {
+      if [long_term_target_index] {
         elasticsearch {
           hosts => ["http://elasticsearch:9200"]
-          index => "%{long_term_index}"
+          index => "%{long_term_target_index}"
         }
       }
     }
