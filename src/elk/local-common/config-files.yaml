@@ -12,25 +12,17 @@ data:
       }
     }
 
-    filter
-    {
+    filter {
       mutate { lowercase => ["env"] }
-
-      if ![env]
-      {
+      if ![env] {
         mutate { add_field => { "env" => "unknown" } }
       }
-
-      if [env] in ["local_prod", "dev"]
-      {
+      if [env] in ["local_prod", "dev"] {
         mutate { add_field => { "target_index" => "logs-%{env}" } }
-        if [long_term] == "true"
-        {
+        if [long_term] == "true" {
           mutate { add_field => { "long_term_target_index" => "logs-long-term-%{env}" } }
         }
-      }
-      else
-      {
+      } else {
         mutate { add_field => { "target_index" => "logs-fallback" } }
       }
     }
