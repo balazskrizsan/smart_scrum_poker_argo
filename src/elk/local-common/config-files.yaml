@@ -14,7 +14,6 @@ data:
 
     filter {
       mutate {
-        add_field => { "env" => "UNKNOWN" }
         lowercase => ["env"]
       }
 
@@ -22,10 +21,12 @@ data:
 
       if [env] in ["local_prod", "dev"] {
         mutate { add_field => { "target_index" => "logs-%{env}" } }
-      
+    
         if [long_term] == "true" {
           mutate { add_field => { "long_term_index" => "logs-long-term-%{env}" } }
         }
+      } else {
+        mutate { add_field => { "env" => "UNKNOWN" } }
       }
     }
 
@@ -47,6 +48,6 @@ data:
     http.host: "0.0.0.0"
     http.port: 9600
     xpack.monitoring.enabled: true
-    xpack.monitoring.elasticsearch.hosts: ["http://elasticsearch:9200"]
+    xpack.monitoring.elasticsearch.hosts: [ "http://elasticsearch:9200" ]
     log.level: info
     path.logs: /var/log/logstash
