@@ -32,11 +32,11 @@ data:
         elasticsearch {
           hosts => ["http://elasticsearch:9200"]
           index => "%{long_term_target_index}"
-        } else {
-          elasticsearch {
-            hosts => ["http://elasticsearch:9200"]
-            index => "%{target_index}"
-          }
+        }
+      } else {
+        elasticsearch {
+          hosts => ["http://elasticsearch:9200"]
+          index => "%{target_index}"
         }
       }
     }
