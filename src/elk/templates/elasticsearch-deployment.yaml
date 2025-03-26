@@ -30,6 +30,8 @@ spec:
               value: "false"
             - name: xpack.security.enabled
               value: "false"
+            - name: path.repo
+              value: "/usr/share/elasticsearch/backup
           ports:
             - containerPort: 9200
           volumeMounts:
