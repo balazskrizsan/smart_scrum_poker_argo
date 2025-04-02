@@ -35,6 +35,6 @@ patches:
         {
           "op": "replace",
           "path": "/spec/rules/0/host",
-          "value": "smart-scrum-poker.uat.balazskrizsan.com"
+          "value": "uat.smartscrumpoker.com"
         }
       ]
