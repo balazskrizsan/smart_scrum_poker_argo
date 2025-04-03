@@ -21,6 +21,6 @@ configMapGenerator:
       - SOCKET_MESSAGE_BROKER_STATS_LOGGING_PERIOD_SECONDS=60
       - SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE=30
       - SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE=30
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://backend-psql-service:47030/smartscrumpoker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://backend-psql-service:3023/smartscrumpoker
       - LOGBACK_LOGSTASH_ENABLED=true
       - LOGBACK_LOGSTASH_FULL_HOST=logstash.smart-scrum-poker-elk-common.svc.cluster.local:5044

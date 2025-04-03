@@ -38,7 +38,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/rules/0/http/paths/0/backend/service/port/number
-        value: 46001
+        value: 3022
 
       - op: replace
         path: /spec/rules/0/host
