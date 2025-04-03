@@ -33,4 +33,4 @@ spec:
               service:
                 name: ssp-backend
                 port:
-                  number: 46001
+                  number: 1111

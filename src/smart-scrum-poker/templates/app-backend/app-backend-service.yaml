@@ -13,5 +13,5 @@ spec:
   ports:
     - name: http
       protocol: TCP
-      port: 46001
+      port: 1111
       targetPort: 8080
