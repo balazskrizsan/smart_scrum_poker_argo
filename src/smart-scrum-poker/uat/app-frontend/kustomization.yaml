@@ -6,35 +6,18 @@ resources:
   - ../../templates/app-frontend
 
 patches:
-  - target:
-      group: apps
-      version: v1
-      kind: Deployment
-      name: ssp-frontend
+  - target: { group: "apps", version: "v1", kind: "Deployment",  name: "ssp-frontend" }
     patch: |-
-      [
-        {
-          "op": "replace",
-          "path": "/spec/template/spec/containers/0/image",
-          "value": "kbalazsworks/smart_scrum_poker_frontend:uat_commit_sha_short_55e7954"
-        }
-      ]
+      - op: "replace"
+        path: "/spec/template/spec/containers/0/image"
+        value: "kbalazsworks/smart_scrum_poker_frontend:uat_commit_sha_short_959667c"
 
-  - target:
-      group: networking.k8s.io
-      version: v1
-      kind: Ingress
-      name: ssp-ingress-frontend
+  - target: { group: "networking.k8s.io", version: "v1", kind: "Ingress", name: "ssp-ingress-frontend" }
     patch: |-
-      [
-        {
-          "op": "replace",
-          "path": "/spec/rules/0/http/paths/0/backend/service/port/number",
-          "value": 48010
-        },
-        {
-          "op": "replace",
-          "path": "/spec/rules/0/host",
-          "value": "uat.smartscrumpoker.balazskrizsan.com"
-        }
-      ]
+      - op: "replace"
+        path: "/spec/rules/0/http/paths/0/backend/service/port/number"
+        value: 48010
+
+      - op: "replace"
+        path: "/spec/rules/0/host"
+        value: "uat.smartscrumpoker.balazskrizsan.com"
