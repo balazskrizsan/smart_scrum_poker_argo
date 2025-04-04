@@ -10,41 +10,41 @@ resources:
   - ../../templates/app-backend
 
 patches:
-  - target:
-      group: apps
-      version: v1
-      kind: Deployment
-      name: ssp-backend
+  - target: { group: "apps", version: "v1", kind: "Deployment", name: "ssp-backend" }
     patch: |-
       - op: replace
         path: /spec/template/spec/containers/0/image
         value: kbalazsworks/smart_scrum_poker_backend_native:commit_sha_short_5322ba9
 
-  - target:
-      group: apps
-      version: v1
-      kind: Deployment
-      name: backend-psql
+  - target: { group: "", version: "v1", kind: "Service", name: "ssp-backend" }
+    patch: |-
+      - op: replace
+        path: /spec/ports/0/port
+        value: 3012
+
+  - target: { group: "apps", version: "v1", kind: "Deployment", name: "backend-psql" }
     patch: |-
       - op: replace
         path: /spec/template/spec/volumes/0/persistentVolumeClaim/claimName
         value: psql-uat-persistent-volume-claim
 
-  - target:
-      group: networking.k8s.io
-      version: v1
-      kind: Ingress
-      name: ssp-ingress-backend
+  - target: { group: "", version: "v1", kind: "Service", name: "backend-psql-service" }
+    patch: |-
+      - op: replace
+        path: /spec/ports/0/port
+        value: 3022
+
+  - target: { group: "networking.k8s.io", version: "v1", kind: "Ingress", name: "ssp-ingress-backend" }
     patch: |-
       - op: replace
         path: /spec/rules/0/http/paths/0/backend/service/port/number
-        value: 3022
+        value: 3012
 
       - op: replace
         path: /spec/rules/0/host
-        value: api.uat.smartscrumpoker.com
+        value: api.smart-scrum-poker.uat.balazskrizsan.com
 
       - op: replace
         path: /spec/tls/0/hosts
         value:
-          - api.uat.smartscrumpoker.com
+          - api.smart-scrum-poker.uat.balazskrizsan.com
