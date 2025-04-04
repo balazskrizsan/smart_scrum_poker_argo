@@ -42,9 +42,9 @@ patches:
 
       - op: replace
         path: /spec/rules/0/host
-        value: api.smart-scrum-poker.uat.balazskrizsan.com
+        value: api.uat.smartscrumpoker.balazskrizsan.com
 
       - op: replace
         path: /spec/tls/0/hosts
         value:
-          - api.smart-scrum-poker.uat.balazskrizsan.com
+          - api.uat.smartscrumpoker.balazskrizsan.com
