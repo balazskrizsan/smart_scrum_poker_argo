@@ -1,0 +1,93 @@
+---
+- name: Install Docker and Minikube on Ubuntu
+  hosts: local
+  become: yes
+  vars:
+    ansible_user: root
+    ansible_distribution_release: jammy
+  tasks:
+
+    - name: Update apt packages
+      apt:
+        update_cache: yes
+
+    - name: Install required dependencies
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - conntrack
+        state: present
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+
+    - name: Add user to Docker group
+        user:
+          name: "{{ ansible_user }}"
+          groups: docker
+          append: yes
+
+    - name: Download Minikube binary
+      get_url:
+        url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+        dest: /usr/local/bin/minikube
+        mode: '0755'
+
+    - name: Verify Minikube installation
+      command: minikube version
+      register: minikube_version
+      changed_when: false
+
+    - debug:
+        msg: "Minikube installed: {{ minikube_version.stdout }}"
+
+    - name: Get latest kubectl version
+      uri:
+        url: https://dl.k8s.io/release/stable.txt
+        return_content: yes
+      register: version
+
+    - name: Download the latest kubectl release
+      uri:
+        url: https://dl.k8s.io/release/{{ version.content }}/bin/linux/arm/kubectl
+        dest: /home/{{ ansible_user }}
+      register: kubectl
+
+    - name: Download the kubectl checksum file
+      uri:
+        url: https://dl.k8s.io/{{ version.content }}/bin/linux/arm/kubectl.sha256
+        dest: /home/{{ ansible_user }}
+
+    - name: Download the kubectl checksum file
+      uri:
+        url: https://dl.k8s.io/{{ version.content }}/bin/linux/arm/kubectl.sha256
+        dest: /home/{{ ansible_user }}
+
+    - name: Validate the kubectl binary against the checksum file
+      shell: echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+      register: result
+
+    - name: Assert that the kubectl binary is OK
+      vars:
+        expected: "kubectl: OK"
+      assert:
+        that:
+          - result.stdout == expected
+        fail_msg: "{{ result.stdout }}"
+        success_msg: "{{ result.stdout }}"
