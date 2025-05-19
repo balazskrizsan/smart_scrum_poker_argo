@@ -1,16 +1,20 @@
 # Port mapping
 
-| App components | DEV   | LOCAL-PROD                                         | UAT                                   | PROD                                      |
-|----------------|-------|----------------------------------------------------|---------------------------------------|-------------------------------------------|
-| **Backend**    | :3000 | :3001                                              | :3002                                 | :3003                                     |
-|                |       | api--smart-scrum-poker.localhost.balazskrizsan.com | api.uat.smartscrumpoker.com           | api.smartscrumpoker.com                   |
+| App components | DEV   | DEVTEST | LOCAL-PROD                                         | UAT                                   | PROD                                      |
+|----------------|-------|---------|----------------------------------------------------|---------------------------------------|-------------------------------------------|
+| **Backend**    | :3000 | 3004    | :3001                                              | :3002                                 | :3003                                     |
+|                |       |         | api--smart-scrum-poker.localhost.balazskrizsan.com | api.uat.smartscrumpoker.com           | api.smartscrumpoker.com                   |
 |                |
-| **Frontend**   | :3010 | :3011                                              | :3012                                 | :3013                                     |
-|                |       | smart-scrum-poker.localhost.balazskrizsan.com      | uat.smartscrumpoker.balazskrizsan.com | api.uat.smartscrumpoker.balazskrizsan.com |
+| **Frontend**   | :3010 |         | :3011                                              | :3012                                 | :3013                                     |
+|                |       |         | smart-scrum-poker.localhost.balazskrizsan.com      | uat.smartscrumpoker.balazskrizsan.com | api.uat.smartscrumpoker.balazskrizsan.com |
 |                |
-| **PostgreSQL** | :3020 | :3021                                              | :3022                                 | :3023                                     |
+| **PSQL**       | :3020 |         | :3021                                              | :3022                                 | :3023                                     |
 |                |
-| **Redis**      | :3030 | :3031                                              | :3032                                 | :3033                                     |
+| **Redis**      | :3030 |         | :3031                                              | :3032                                 | :3033                                     |
+|                |
+| **AI Backend** | :3040 | :3044   | :3041                                              | :3042                                 | :3043                                     |
+|                |
+| **AI Psql**    | :3050 | :3054   | :3051                                              | :3052                                 | :3053                                     |
 
 | 3rd party components   | Local                                                             | Aruba                                                  |
 |------------------------|-------------------------------------------------------------------|--------------------------------------------------------|
