@@ -45,3 +45,56 @@ spec:
       targetPort: 5432
   selector:
     app: backend-psql-label
+
+
+---
+### AI App - PSQL
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ssp-test
+  name: ai-backend-psql-deployment
+  labels:
+    app: ai-backend-psql-label
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ai-backend-psql-label
+  template:
+    metadata:
+      labels:
+        app: ai-backend-psql-label
+    spec:
+      containers:
+        - name: postgres
+          image: ankane/pgvector:v0.5.1
+          ports:
+            - containerPort: 5432
+          imagePullPolicy: IfNotPresent
+          resources: {}
+          env:
+            - name: POSTGRES_USER
+              value: admin
+            - name: POSTGRES_PASSWORD
+              value: admin_pass
+            - name: POSTGRES_DB
+              value: ssp_ai
+            - name: PGDATA
+              value: /data/postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ssp-test
+  name: ai-backend-psql-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3054
+      targetPort: 5432
+  selector:
+    app: ai-backend-psql-label
+
