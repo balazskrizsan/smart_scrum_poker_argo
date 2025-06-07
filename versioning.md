@@ -2,8 +2,9 @@
 
 | Version | Backend                  | Frontend                     | UAT | PROD | LOCAL_PROD |
 |---------|--------------------------|------------------------------|-----|------|------------|
-| 0.0.12  | commit_sha_short_e9559c0 | ENV_commit_sha_short_959667c | ✅   |      |            |
-| 0.0.12  | commit_sha_short_e9559c0 | ENV_commit_sha_short_1fd4193 |     | ✅    |            |
+| 0.0.13  | commit_sha_short_e9559c0 | ENV_commit_sha_short_0b6e41a | ✅   | ✅    |            |
+| 0.0.12  | commit_sha_short_e9559c0 | ENV_commit_sha_short_959667c |     |      |            |
+| 0.0.12  | commit_sha_short_e9559c0 | ENV_commit_sha_short_1fd4193 |     |      |            |
 | 0.0.12  | commit_sha_short_e9559c0 | ENV_commit_sha_short_7745dd5 |     |      | ✅          |
 | 0.0.11  | commit_sha_short_835a981 | ENV_commit_sha_short_7745dd5 |     |      |            |
 | 0.0.10  | commit_sha_short_5322ba9 | ENV_commit_sha_short_55e7954 |     |      |            |
