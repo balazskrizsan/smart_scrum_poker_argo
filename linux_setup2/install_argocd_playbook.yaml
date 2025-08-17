@@ -1,0 +1,37 @@
+---
+- name: Install ArgoCD on Minikube with Docker
+  hosts: localhost
+  become: yes
+  tasks:
+    #    - name: Start Minikube if it's not already running
+    #      command: minikube start --driver=docker --force
+    #      register: minikube_status
+    #      changed_when: "'minikube already running' not in minikube_status.stdout"
+
+    - name: Set kubectl to use Minikube's context
+      command: kubectl config use-context minikube
+
+    - name: Install ArgoCD using kubectl
+      shell: |
+        kubectl create namespace argocd
+        kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+      args:
+        creates: /tmp/argo_install_done
+
+    - name: Expose ArgoCD server as LoadBalancer
+      shell: |
+        kubectl expose svc/argocd-server --type=LoadBalancer -n argocd --port=80 --target-port=8080
+    #      when: not ansible_facts.os.family == "Darwin"
+
+    - name: Get ArgoCD initial admin password
+      command: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 --decode
+      register: argocd_password
+      no_log: true
+
+    - name: Print ArgoCD Admin password
+      debug:
+        msg: "ArgoCD Admin password: {{ argocd_password.stdout }}"
+
+    - name: Print ArgoCD URL
+      debug:
+        msg: "ArgoCD URL: http://{{ ansible_hostname }}:{{ ansible_facts.network_interfaces.eth0.ipv4.address }}"
