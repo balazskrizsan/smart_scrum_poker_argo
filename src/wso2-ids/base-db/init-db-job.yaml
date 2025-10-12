@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: init-wso2-db
+spec:
+  template:
+    spec:
+      containers:
+        - name: db-init
+          image: postgres:15
+          env:
+            - name: PGPASSWORD
+              value: "admin"
+            - name: PGHOST
+              value: "dev-wso2is-psql"
+            - name: PGUSER
+              value: "admin"
+            - name: PGPORT
+              value: "5432"
+          command:
+            - sh
+            - -c
+            - |
+              until pg_isready; do sleep 2; done
+
+              echo "Creating databases if they don't exist"
+              psql -tc "SELECT 1 FROM pg_database WHERE datname='wso2db'"     | grep -q 1 || psql -c "CREATE DATABASE wso2db;"
+              psql -tc "SELECT 1 FROM pg_database WHERE datname='identitydb'" | grep -q 1 || psql -c "CREATE DATABASE identitydb;"
+              psql -tc "SELECT 1 FROM pg_database WHERE datname='userdb'"     | grep -q 1 || psql -c "CREATE DATABASE userdb;"
+
+              echo "Granting privileges"
+              psql -c "GRANT ALL PRIVILEGES ON DATABASE wso2db TO admin;"
+              psql -c "GRANT ALL PRIVILEGES ON DATABASE identitydb TO admin;"
+              psql -c "GRANT ALL PRIVILEGES ON DATABASE userdb TO admin;"
+
+              echo "Running WSO2 SQL scripts"
+              ls -hal /dbscripts
+              psql -d wso2db     -f /dbscripts/postgresql.sql
+              psql -d identitydb -f /dbscripts/identity/postgresql.sql
+              psql -d userdb     -f /dbscripts/consent/postgresql.sql
+
+              echo "WSO2 DB initialization finished."
+          volumeMounts:
+            - name: wso2-db-scripts
+              mountPath: /dbscripts
+      restartPolicy: OnFailure
+      volumes:
+        - name: wso2-db-scripts
+          persistentVolumeClaim:
+            claimName: dev-wso2is-db-scripts-pvc
