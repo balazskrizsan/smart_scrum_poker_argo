@@ -34,7 +34,6 @@ spec:
               psql -c "GRANT ALL PRIVILEGES ON DATABASE userdb TO admin;"
 
               echo "Running WSO2 SQL scripts"
-              ls -hal /dbscripts
               psql -d wso2db     -f /dbscripts/postgresql.sql
               psql -d identitydb -f /dbscripts/identity/postgresql.sql
               psql -d userdb     -f /dbscripts/consent/postgresql.sql
