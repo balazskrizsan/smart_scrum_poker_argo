@@ -7,3 +7,10 @@ resources:
   - ./../base-common
   - ./../base
   - ./../base-db
+
+patches:
+  - target: { group: "batch", version: "v1", kind: "Job", name: "init-wso2-db" }
+    patch: |-
+      - op: "replace"
+        path: "/spec/template/spec/containers/0/env/0/value"
+        value: "dev-wso2is-psql"

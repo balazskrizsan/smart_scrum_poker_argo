@@ -9,10 +9,10 @@ spec:
         - name: db-init
           image: postgres:15
           env:
+            - name: PGHOST
+              value: "HOST-TEMPLATE-VAR"
             - name: PGPASSWORD
               value: "admin"
-            - name: PGHOST
-              value: "dev-wso2is-psql"
             - name: PGUSER
               value: "admin"
             - name: PGPORT
