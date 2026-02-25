@@ -14,7 +14,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/template/spec/containers/0/image
-        value: kbalazsworks/smart_scrum_poker_backend_native:commit_sha_short_c5934b6
+        value: kbalazsworks/smart_scrum_poker_backend_native:commit_sha_short_aea5f03
 
   - target: { group: "", version: "v1", kind: "Service", name: "ssp-backend" }
     patch: |-
