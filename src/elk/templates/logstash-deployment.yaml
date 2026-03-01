@@ -13,6 +13,8 @@ spec:
     metadata:
       labels:
         app: logstash
+      annotations:
+        configmap-version: "v1"
     spec:
       containers:
         - name: logstash
