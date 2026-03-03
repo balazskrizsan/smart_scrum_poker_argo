@@ -14,7 +14,7 @@ spec:
       labels:
         app: logstash
       annotations:
-        configmap-version: "v3"
+        configmap-version: "v4"
     spec:
       containers:
         - name: logstash
