@@ -17,7 +17,7 @@ data:
   high-severity-per-second-alert.yaml: |
     name: "High severity per-second alert"
     type: frequency
-    index: logs-dev
+    index: ssp-*-logs-*
     num_events: 1
     timeframe:
       seconds: 1
@@ -31,3 +31,23 @@ data:
       token: ${PUSHOVER_TOKEN}
       user: ${PUSHOVER_USER}
       message: High severity log detected!
+    realert:
+      minutes: 10
+
+  new-poker-started-alert.yaml: |
+    name: "New poker started alert"
+    type: frequency
+    index: ssp-*-logs-long-term
+    num_events: 1
+    timeframe:
+      seconds: 1
+    filter:
+      - query:
+          query_string:
+            query: "message:\"New poker started\""
+    alert: post2
+    http_post2_url: "https://api.pushover.net/1/messages.json"
+    http_post2_payload: 
+      token: ${PUSHOVER_TOKEN}
+      user: ${PUSHOVER_USER}
+      message: New poker game started!

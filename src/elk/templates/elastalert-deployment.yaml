@@ -11,6 +11,8 @@ spec:
     metadata:
       labels:
         app: elastalert
+      annotations:
+        rules-version: "v2"
     spec:
       containers:
         - name: elastalert

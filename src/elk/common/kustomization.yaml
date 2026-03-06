@@ -4,6 +4,7 @@ namespace: smart-scrum-poker-elk-common
 
 resources:
   - ./config-files.yaml
+  - ./elastalert-rules.yaml
   - ../templates
   - ./kibana-ingress.yaml
 
