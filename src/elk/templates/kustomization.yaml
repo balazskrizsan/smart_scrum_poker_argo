@@ -3,7 +3,6 @@ kind: Kustomization
 
 resources:
   - elastalert-config.yaml
-  - elastalert-rules.yaml
   - elastalert-deployment.yaml
   - elasticsearch-backup-pvc.yaml
   - elasticsearch-deployment.yaml
