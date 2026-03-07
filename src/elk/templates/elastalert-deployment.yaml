@@ -12,7 +12,7 @@ spec:
       labels:
         app: elastalert
       annotations:
-        rules-version: "v2"
+        rules-version: "v3"
     spec:
       containers:
         - name: elastalert
